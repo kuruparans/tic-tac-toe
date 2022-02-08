@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>Tic-Tac-Toe</title>
+        <style>
+            #board {
+                font-family: 'Courier New', Courier, monospace;
+            }
+        </style>
+        <script>
+            window.addEventListener('DOMContentLoaded', (event) => {
+                let board = createBoard();
+                outputBoard(board);
+            });
+
+            function createBoard() {
+                let board = [
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 1]];
+                return board;
+            }
+
+            function updateBoard(x, y, board, player) {
+                
+            }
+
+            function outputBoard(board) {
+                let boardElement = document.getElementById('board');
+                console.log(board)
+                let boardString = ''
+                for (const row of board) {
+                    console.log(row);
+                    for (const cell of row) {
+                        boardString += cell;
+                        boardString += ' '
+                    }
+                    boardString += '<br />\n';
+                }
+                boardElement.innerHTML = boardString;
+            }
+        </script>
+    </head>
+    <body>
+        <div id="board">
+
+        </div>
+    </body>
+</html>

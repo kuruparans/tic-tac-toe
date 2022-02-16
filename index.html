@@ -4,6 +4,17 @@
         <style>
             #board {
                 font-family: 'Courier New', Courier, monospace;
+                display: grid;
+                grid-gap: 5px;
+                grid-template-columns: 1fr 1fr 1fr;
+                width: 50%;
+            }
+            .cell {
+                aspect-ratio: 1;
+                background-color: bisque;
+                text-align: center;
+                display: flex;
+                align-items: center;
             }
         </style>
         <script>
@@ -16,12 +27,14 @@
                 let board = [
                     [0, 0, 0],
                     [0, 0, 0],
-                    [0, 0, 1]];
+                    [0, 0, 0]];
                 return board;
             }
 
-            function updateBoard(x, y, board, player) {
-                
+            function updateBoard(board, x, y, player) {
+                if (board[y][x])
+                    throw new Exception(`Position (x=${x}, y=${y}) already occupied with: ${board[y][x]}`);
+                board[y][x] = player;
             }
 
             function outputBoard(board) {
@@ -31,10 +44,8 @@
                 for (const row of board) {
                     console.log(row);
                     for (const cell of row) {
-                        boardString += cell;
-                        boardString += ' '
+                        boardString += `<div class="cell">${cell}</div>`;
                     }
-                    boardString += '<br />\n';
                 }
                 boardElement.innerHTML = boardString;
             }
@@ -42,7 +53,6 @@
     </head>
     <body>
         <div id="board">
-
         </div>
     </body>
 </html>

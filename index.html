@@ -20,14 +20,50 @@
             }
         </style>
         <script>
-            let playerOne = 'x', playerTwo = 'o'
+            let playerOne = 'x', playerTwo = 'o';
+            let boardSize = 3;
 
             window.addEventListener('DOMContentLoaded', (event) => {
                 let board = createBoard();
                 outputBoard(board, playerOne);
             });
 
-            function checkWinner(board) {
+            function checkWinner(board, x, y, player) {
+                console.log(board, x, y, player);
+                for (let row = 0; row < boardSize; row++) {
+                    if (board[row][x] !== player)
+                        break;
+                    if (row === boardSize - 1) {
+                        alert(`Game over, player ${player} wins!`);
+                    }
+                }
+                for (let col = 0; col < 3; col++) {
+                    if (board[y][col] !== player)
+                        break;
+                    if (col === boardSize - 1) {
+                        alert(`Game over, player ${player} wins!`);
+                        return;
+                    }
+                }
+                if (x === y) {
+                    for (let diagonal = 0; diagonal < boardSize; diagonal++) {
+                        if (board[diagonal][diagonal] != player)
+                            break;
+                        if (diagonal === boardSize - 1) {
+                            alert(`Game over, player ${player} wins!`);
+                        }
+                    }
+                }
+                if (x + y === boardSize - 1) {
+                    for (let antiDiagonal = 0; antiDiagonal < boardSize; antiDiagonal++) {
+                        if (board[antiDiagonal][boardSize - 1 - antiDiagonal] != player)
+                            break;
+                        if (antiDiagonal === boardSize - 1) {
+                            alert(`Game over, player ${player} wins!`);
+                        }
+                    }
+                }
+
                 return false;
             }
 
@@ -66,7 +102,7 @@
                                 alert('Pick another spot');
                             } else {
                                 let updatedBoard = updateBoard(board, x, y, player);
-                                checkWinner(updatedBoard);
+                                checkWinner(updatedBoard, x, y, player);
                                 outputBoard(updatedBoard, switchPlayer(player));
                             }
                         });
